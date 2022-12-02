@@ -1,8 +1,6 @@
 import pickle
 import numpy as np 
 import streamlit as st
-print(np.__version__)
-print(st.__version__)
 
 
 
@@ -84,8 +82,7 @@ with st.container():
             c_tinggi = tinggi_badan if tinggi_badan_option == "cm" else tinggi_badan*30.48;
 
             c_berat = berat_badan if beart_badan_option =="kg" else berat_badan*0.453592;
-            st.write(c_tinggi)
-            st.write(c_berat)
+            hasil = calculateBodyfat(umur,c_tinggi,c_berat,gender)
         elif(umur == 0.00 or tinggi_badan ==0.00 or berat_badan == 0.00 ):
             col_upper.error('inputan belum di input sepenuhnya', icon="🚨")
         else :
