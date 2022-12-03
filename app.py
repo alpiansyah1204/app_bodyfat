@@ -62,13 +62,16 @@ with st.container():
         "Tinggi badan anda"
         )
 
-        berat_badan = st.number_input(
-        "Berat badan anda"
-        )
     with col2 :
         tinggi_badan_option = st.selectbox(
         '',
         ('cm', 'ft', ),label_visibility='hidden')
+    col1, col2,col3, = st.columns([3, 1, 6])
+    with col1 :
+        berat_badan = st.number_input(
+        "Berat badan anda"
+        )
+    with col2 :
         beart_badan_option = st.selectbox(
         '',
         ('kg', 'lb', ),label_visibility='hidden')
