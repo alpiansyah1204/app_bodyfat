@@ -25,6 +25,8 @@ def calculateBodyfat(umur,tinggi_badan,berat_badan,gender):
 c_tinggi =""
 c_berat = ""
 kkb = ""
+kkb_b = 0
+st.session_state.kkb = 0
 st.set_page_config(page_title="Fidealify", page_icon="images\Fi.png", layout="wide")
 
 # Header Section 
@@ -80,34 +82,12 @@ with st.container():
     
     
     col_upper,ccol = st.columns([4,6])
-    if col_upper.button('Calculate body fat'):
-        if (umur != 0.00 and tinggi_badan !=0.00 and berat_badan != 0.00 ):
-            c_tinggi = tinggi_badan if tinggi_badan_option == "cm" else tinggi_badan*30.48;
-            c_berat = berat_badan if beart_badan_option =="kg" else berat_badan*0.453592;
-            hasil = calculateBodyfat(umur,c_tinggi,c_berat,gender)
-            bbi = (c_tinggi-100)-((c_tinggi-100)/10) 
-            kkb = 30*bbi if gender == "Laki-laki" else 25*bbi
-        elif(umur == 0.00 or tinggi_badan ==0.00 or berat_badan == 0.00 ):
-            col_upper.error('inputan belum di input sepenuhnya', icon="🚨")
-        else :
-            col_upper.error('inputan belum di input sepenuhnya', icon="🚨")
 
-    col_upper.text('\n')
-    col_upper.text('\n')
-    col_upper.subheader(f'Body fat kamu : {hasil}') 
-    col_upper.write('---')
-    col_upper.subheader(f'Kebutuhan kalori basal perhari: {kkb}') 
-    # dataset = {
-    #     'Green' : 1, 
-    #     'Yellow' : 2, 
-    #     'Red' :3 , 
-    #     'Blue' :4
-    # }
     df = pd.read_csv('datasetkalori.csv')
     makananDanKalori = dict(df.values)
     # st.write(makananDanKalori)
     options = col_upper.multiselect(
-        'pilih makanan yang sering kamu konsumsi',
+        'What are your favorite colors',
 
         [x for x in makananDanKalori ])
 
@@ -123,10 +103,36 @@ with st.container():
     }
 
     col_upper.table(dataC)  # Same as st.write(df)
-    st.write(f'total kalori makanan yang di makan sehari : '+ str(sum(kalori)) if sum(kalori)!= 0 else '')
-    if (kkb<sum(kalori)):
-        st.warning('total kalori makanan anda melebihi kebutuhan kalori ', icon="⚠️")
-    elif(kkb>sum(kalori)):
-        st.success('total kalori makanan anda cukup untuk kebutuhan kalori ', icon="✅")
+    st.write(f'total kalori makanan yang di makan sehari : '+ str(sum(kalori)) if sum(kalori)!= 0 else '')  
+
+    if col_upper.button('Calculate body fat'):
+        if (umur != 0.00 and tinggi_badan !=0.00 and berat_badan != 0.00 ):
+            c_tinggi = tinggi_badan if tinggi_badan_option == "cm" else tinggi_badan*30.48;
+            c_berat = berat_badan if beart_badan_option =="kg" else berat_badan*0.453592;
+            hasil = calculateBodyfat(umur,c_tinggi,c_berat,gender)
+            bbi = (c_tinggi-100)-((c_tinggi-100)/10) 
+            st.session_state.kkb = 30*bbi if gender == "Laki-laki" else 25*bbi
+            
+        elif(umur == 0.00 or tinggi_badan ==0.00 or berat_badan == 0.00 ):
+            col_upper.error('inputan belum di input sepenuhnya', icon="🚨")
+        else :
+            col_upper.error('inputan belum di input sepenuhnya', icon="🚨")
+
+    col_upper.text('\n')
+    col_upper.text('\n')
+    col_upper.write('---')
+    col_upper.subheader(f'Body fat kamu : {hasil}') 
+    col_upper.subheader(f'Kebutuhan kalori basal perhari: {st.session_state.kkb}') 
+    # dataset = {
+    #     'Green' : 1, 
+    #     'Yellow' : 2, 
+    #     'Red' :3 , 
+    #     'Blue' :4
+    # }
+
+    if (st.session_state.kkb<sum(kalori)):
+        col_upper.warning('total kalori makanan anda melebihi kebutuhan kalori ', icon="⚠️")
+    elif(st.session_state.kkb>sum(kalori)):
+        col_upper.success('total kalori makanan anda cukup untuk kebutuhan kalori ', icon="✅")
     
         
