@@ -135,4 +135,12 @@ with st.container():
     elif(st.session_state.kkb>sum(kalori)):
         col_upper.success('total kalori makanan anda cukup untuk kebutuhan kalori ', icon="✅")
     
-        
+    col_upper.write(f'''
+        <a target="_self" href="https://fidealify.000webhostapp.com/">
+            <button>
+                kembali ke halaman awal
+            </button>
+        </a>
+        ''',
+        unsafe_allow_html=True
+    )
