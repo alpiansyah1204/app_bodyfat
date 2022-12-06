@@ -107,7 +107,7 @@ with st.container():
     makananDanKalori = dict(df.values)
     # st.write(makananDanKalori)
     options = col_upper.multiselect(
-        'What are your favorite colors',
+        'pilih makanan yang sering kamu konsumsi',
 
         [x for x in makananDanKalori ])
 
