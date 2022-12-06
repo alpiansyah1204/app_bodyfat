@@ -124,3 +124,9 @@ with st.container():
 
     col_upper.table(dataC)  # Same as st.write(df)
     st.write(f'total kalori makanan yang di makan sehari : '+ str(sum(kalori)) if sum(kalori)!= 0 else '')
+    if (kkb<sum(kalori)):
+        st.warning('total kalori makanan anda melebihi kebutuhan kalori ', icon="⚠️")
+    elif(kkb>sum(kalori)):
+        st.success('total kalori makanan anda cukup untuk kebutuhan kalori ', icon="✅")
+    
+        
