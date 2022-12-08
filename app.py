@@ -103,7 +103,7 @@ with st.container():
     }
 
     col_upper.table(dataC)  # Same as st.write(df)
-    st.write(f'total kalori makanan yang di makan sehari : '+ str(sum(kalori)) if sum(kalori)!= 0 else '')  
+    col_upper.write(f'total kalori makanan yang di makan sehari : '+ str(sum(kalori)) if sum(kalori)!= 0 else '')  
 
     if col_upper.button('Calculate body fat'):
         if (umur != 0.00 and tinggi_badan !=0.00 and berat_badan != 0.00 ):
