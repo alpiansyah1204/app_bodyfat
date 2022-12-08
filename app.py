@@ -22,7 +22,7 @@ def calculateBodyfat(umur,tinggi_badan,berat_badan,gender):
     
     return bodyfat
 
-btnSubmit = false
+btnSubmit = 0
 c_tinggi =""
 c_berat = ""
 kkb = ""
@@ -113,7 +113,7 @@ with st.container():
             hasil = calculateBodyfat(umur,c_tinggi,c_berat,gender)
             bbi = (c_tinggi-100)-((c_tinggi-100)/10) 
             st.session_state.kkb = 30*bbi if gender == "Laki-laki" else 25*bbi
-            btnSubmit = true
+            btnSubmit = 1
         elif(umur == 0.00 or tinggi_badan ==0.00 or berat_badan == 0.00 ):
             col_upper.error('inputan belum di input sepenuhnya', icon="🚨")
         else :
@@ -131,9 +131,9 @@ with st.container():
     #     'Blue' :4
     # }
 
-    if (st.session_state.kkb<sum(kalori) and btnSubmit):
+    if (st.session_state.kkb<sum(kalori) and btnSubmit ==1):
         col_upper.warning('total kalori makanan anda melebihi kebutuhan kalori ', icon="⚠️")
-    elif(st.session_state.kkb>sum(kalori) and btnSubmit):
+    elif(st.session_state.kkb>sum(kalori) and btnSubmit ==1):
         col_upper.success('total kalori makanan anda cukup untuk kebutuhan kalori ', icon="✅")
     
     col_upper.write(f'''
